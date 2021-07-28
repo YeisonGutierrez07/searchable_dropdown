@@ -452,12 +452,16 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
         margin: EdgeInsets.symmetric(horizontal: 2),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Theme.of(context).primaryColorLight),
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).primaryColorLight,
+        ),
         child: Text(
           _selectedItemAsString(item),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       );
     }
@@ -480,8 +484,13 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
               .toList(),
         );
       }
-      return Text(_selectedItemAsString(getSelectedItem),
-          style: Theme.of(context).textTheme.subtitle1);
+      return Text(
+        _selectedItemAsString(getSelectedItem),
+        style: TextStyle(
+          fontSize: 15.0,
+          fontWeight: FontWeight.w800,
+        ),
+      );
     }
 
     return Row(
@@ -567,16 +576,16 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
   InputDecoration _manageDropdownDecoration(FormFieldState state) {
     return (widget.dropdownSearchDecoration ??
             InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
-                border: OutlineInputBorder()))
+              border: OutlineInputBorder(),
+            ))
         .applyDefaults(Theme.of(state.context).inputDecorationTheme)
         .copyWith(
-            enabled: widget.enabled,
-            labelText: widget.label,
-            hintText: widget.hint,
-            suffixIcon:
-                widget.showAsSuffixIcons ? _manageTrailingIcons() : null,
-            errorText: state.errorText);
+          enabled: widget.enabled,
+          labelText: widget.label,
+          hintText: widget.hint,
+          suffixIcon: widget.showAsSuffixIcons ? _manageTrailingIcons() : null,
+          errorText: state.errorText,
+        );
   }
 
   ///function that return the String value of an object
@@ -634,17 +643,11 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       barrierColor: widget.popupBarrierColor ?? const Color(0x80000000),
       context: context,
       pageBuilder: (context, animation, secondaryAnimation) {
-        return SafeArea(
-          top: widget.popupSafeArea.top,
-          bottom: widget.popupSafeArea.bottom,
-          left: widget.popupSafeArea.left,
-          right: widget.popupSafeArea.right,
-          child: AlertDialog(
-            contentPadding: EdgeInsets.all(0),
-            shape: widget.popupShape,
-            backgroundColor: widget.popupBackgroundColor,
-            content: _selectDialogInstance(),
-          ),
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(0),
+          shape: widget.popupShape,
+          backgroundColor: widget.popupBackgroundColor,
+          content: _selectDialogInstance(),
         );
       },
     );
@@ -676,9 +679,6 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
               children: [
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.only(
-                    top: widget.popupSafeArea.top ? padding.top : 0,
-                  ),
                   color:
                       widget.popupBackgroundColor ?? Theme.of(ctx).canvasColor,
                   child: SafeArea(
@@ -736,6 +736,16 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         items: [
           CustomPopupMenuItem(
             child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.circular(10.0),
+                ),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 2,
+                ),
+              ),
               width: popupButtonObject.size.width,
               child: _selectDialogInstance(defaultHeight: 224),
             ),

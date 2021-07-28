@@ -186,7 +186,7 @@ class _SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                         );
                       else
                         return const Center(
-                          child: const Text("No data found"),
+                          child: const Text("No se encontro ningún resultado."),
                         );
                     }
                     return MediaQuery.removePadding(
@@ -415,11 +415,33 @@ class _SelectionWidgetState<T> extends State<SelectionWidget<T>> {
             ),
             onTap: _isDisabled(item) ? null : () => _handleSelectedItem(item),
           )
-        : ListTile(
-            enabled: !_isDisabled(item),
-            title: Text(_selectedItemAsString(item)),
-            selected: _isSelectedItem(item),
-            onTap: _isDisabled(item) ? null : () => _handleSelectedItem(item),
+        : Container(
+            color:
+                item == "Agregar nuevo" ? Colors.grey[300] : Colors.transparent,
+            child: ListTile(
+              enabled: !_isDisabled(item),
+              title: Row(
+                children: [
+                  item == "Agregar nuevo"
+                      ? Image(
+                          height: 30,
+                          image: AssetImage(
+                            "packages/dropdown_search/assets/plus_add_customer.png",
+                          ),
+                        )
+                      : Container(),
+                  Text(
+                    _selectedItemAsString(item),
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+              selected: _isSelectedItem(item),
+              onTap: _isDisabled(item) ? null : () => _handleSelectedItem(item),
+            ),
           );
   }
 
@@ -473,8 +495,13 @@ class _SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                 }),
                 decoration: widget.searchFieldProps?.decoration ??
                     InputDecoration(
-                      hintText: widget.hintText,
-                      border: const OutlineInputBorder(),
+                      border: InputBorder.none,
+                      hintText: "Buscar",
+                      hintStyle: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.grey[400],
+                      ),
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 16),
                     ),
@@ -612,8 +639,9 @@ class _SelectionWidgetState<T> extends State<SelectionWidget<T>> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).primaryColorLight),
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).primaryColorLight,
+      ),
       child: Text(
         _selectedItemAsString(item),
         textAlign: TextAlign.center,
