@@ -502,8 +502,11 @@ class _SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                         fontWeight: FontWeight.w800,
                         color: Colors.grey[400],
                       ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 16),
+                      suffixIcon: Icon(
+                        Icons.search,
+                        size: 30.0,
+                        color: Color(0xFFFF6F6C),
+                      ),
                     ),
                 keyboardType: widget.searchFieldProps?.keyboardType,
                 textInputAction: widget.searchFieldProps?.textInputAction,
