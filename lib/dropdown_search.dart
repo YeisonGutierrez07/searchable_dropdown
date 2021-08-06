@@ -605,8 +605,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
     final dropdownButtonPressed = () => _selectSearchMode();
 
     return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         if (getSelectedItems.isNotEmpty && widget.showClearButton == true)
           widget.clearButtonBuilder != null
